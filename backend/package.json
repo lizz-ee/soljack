@@ -1,0 +1,25 @@
+{
+  "name": "soljack-backend",
+  "version": "1.0.0",
+  "description": "SolJack backend server",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.87.6",
+    "@fastify/cors": "^8.5.0",
+    "fastify": "^4.25.2",
+    "ws": "^8.16.0",
+    "redis": "^4.6.12",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/ws": "^8.5.10",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

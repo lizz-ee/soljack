@@ -1,0 +1,23 @@
+[package]
+name = "username-registry"
+version = "0.1.0"
+description = "Username registry program for SolJack"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "username_registry"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.28.0"
+
+[dev-dependencies]
+solana-program-test = "1.16"
+solana-sdk = "1.16"
