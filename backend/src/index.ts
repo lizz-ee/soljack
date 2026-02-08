@@ -12,7 +12,7 @@ const fastify = Fastify({
 
 // CORS
 fastify.register(cors, {
-  origin: ['https://soljack.online', 'http://localhost:5173'],
+  origin: ['https://soljack.online', 'http://localhost:8080'],
 });
 
 // Register routes

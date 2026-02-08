@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useUsernameProgram, findUsernamePda, findWalletPda, FEE_DESTINATION, SystemProgram } from '../lib/anchor';
 
 interface Props {
   onClose: () => void;
@@ -7,6 +8,7 @@ interface Props {
 
 export default function UsernameModal({ onClose }: Props) {
   const { publicKey } = useWallet();
+  const program = useUsernameProgram();
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,16 +27,55 @@ export default function UsernameModal({ onClose }: Props) {
       return;
     }
 
+    if (!program) {
+      setError('Wallet not connected');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      // TODO: Call claim_username instruction
-      // const tx = await program.methods.claimUsername(username).accounts({...}).rpc();
-      
-      // Mock success for now
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Find PDAs
+      const [usernamePda] = findUsernamePda(program.programId, username);
+      const [walletPda] = findWalletPda(program.programId, publicKey);
+
+      console.log('Claiming username:', username);
+      console.log('Username PDA:', usernamePda.toString());
+      console.log('Wallet PDA:', walletPda.toString());
+
+      // Call claim_username instruction
+      const tx = await program.methods
+        .claimUsername(username)
+        .accounts({
+          user: publicKey,
+          usernameAccount: usernamePda,
+          walletAccount: walletPda,
+          feeDestination: FEE_DESTINATION,
+          systemProgram: SystemProgram.programId,
+        })
+        .rpc();
+
+      console.log('Username claimed! Transaction:', tx);
+
+      // Refresh page to update context
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+
       onClose();
     } catch (err: any) {
-      setError(err.message || 'Failed to claim username');
+      console.error('Failed to claim username:', err);
+
+      // Parse error message
+      let errorMsg = 'Failed to claim username';
+      if (err.message?.includes('already in use')) {
+        errorMsg = 'Username already taken';
+      } else if (err.message?.includes('insufficient')) {
+        errorMsg = 'Insufficient SOL balance';
+      } else if (err.message) {
+        errorMsg = err.message;
+      }
+
+      setError(errorMsg);
     } finally {
       setIsSubmitting(false);
     }

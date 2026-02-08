@@ -58,38 +58,57 @@ function subscribeToUsernameProgram() {
 
 function handleGameAccountChange(accountInfo: any, context: any) {
   try {
-    // TODO: Decode account data and determine event type
-    // Parse table state and broadcast appropriate WebSocket events
-    
-    // Example events:
-    // - table_created
-    // - player_joined
-    // - deck_shuffling
-    // - hand_started
-    // - card_dealt
-    // - turn_changed
-    // - hand_settled
-    // - table_closed
+    // TODO: Use Anchor BorshAccountsCoder to properly decode account data
+    // For now, we log the event and broadcast a generic update
 
-    const mockTableId = '12345';
-    const mockEvent = {
-      event: 'player_joined',
-      tableId: mockTableId,
-      opponent: '9XmT5pQr8uYnLmKp3NbVwZxRtCdEfGhIj4AsBcDeF1Gh',
-      state: 'COMMITTING',
+    const data = accountInfo.accountInfo.data;
+    const pubkey = accountInfo.accountId.toString();
+
+    console.log(`Game account changed: ${pubkey} (${data.length} bytes)`);
+
+    // Determine event type based on account data patterns
+    // This is a placeholder until proper Anchor IDL deserialization is implemented
+    const eventType = determineEventType(data);
+
+    const event = {
+      event: eventType,
+      tableId: pubkey,
+      timestamp: Date.now(),
+      context: {
+        slot: context.slot,
+      },
     };
 
-    broadcastToTable(mockTableId, mockEvent);
+    // Broadcast to all clients for now (until we can parse table ID properly)
+    broadcastToAll(event);
+
+    console.log(`Broadcast event: ${eventType} for table ${pubkey}`);
   } catch (error) {
     console.error('Error handling game account change:', error);
   }
 }
 
+function determineEventType(data: Buffer): string {
+  // Placeholder logic - should use Anchor deserialization
+  // For now, just return a generic update event
+  // TODO: Decode TableAccount struct and check state field
+  return 'table_updated';
+}
+
 function handleUsernameAccountChange(accountInfo: any, context: any) {
   try {
-    // TODO: Decode username claim events
-    // Update leaderboard cache if needed
-    console.log('Username account changed');
+    // TODO: Use Anchor BorshAccountsCoder to properly decode account data
+    const pubkey = accountInfo.accountId.toString();
+    console.log(`Username account changed: ${pubkey}`);
+
+    // Broadcast username registration event
+    const event = {
+      event: 'username_claimed',
+      account: pubkey,
+      timestamp: Date.now(),
+    };
+
+    broadcastToAll(event);
   } catch (error) {
     console.error('Error handling username account change:', error);
   }

@@ -4,8 +4,11 @@
   "description": "PvP Blackjack on Solana",
   "private": true,
   "scripts": {
-    "build": "vite build",
-    "dev": "vite dev"
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build": "npm run build:frontend && npm run build:backend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev"
   },
   "dependencies": {
     "@solana/web3.js": "^1.87.6",

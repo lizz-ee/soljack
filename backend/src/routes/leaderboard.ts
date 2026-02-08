@@ -13,7 +13,7 @@ export async function getLeaderboard(
     const limit = parseInt(request.query.limit || '100');
 
     // Check cache
-    const cacheKey = leaderboard:${limit};
+    const cacheKey = `leaderboard:${limit}`;
     const cached = await getCache(cacheKey);
     if (cached) {
       return JSON.parse(cached);

@@ -4,7 +4,7 @@ dotenv.config();
 
 export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
-  port: parseInt(process.env.PORT || '3000'),
+  port: parseInt(process.env.PORT || '8000'),
   wsPort: parseInt(process.env.WS_PORT || '3001'),
   
   rpcUrl: process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
