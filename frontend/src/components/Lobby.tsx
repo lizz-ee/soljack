@@ -84,9 +84,9 @@ export default function Lobby({ betTier }: Props) {
 
 function TableCard({ table, onJoin }: { table: OpenTable; onJoin: (id: string) => void }) {
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return '${mins}:${secs.toString().padStart(2, 0)}';
+    return `${Math.floor(seconds / 60)}:${(seconds % 60)
+      .toString()
+      .padStart(2, '0')}`;
   };
 
   return (

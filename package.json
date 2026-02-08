@@ -1,12 +1,11 @@
 {
-  "name": "soljack-frontend",
-  "private": true,
+  "name": "soljack",
   "version": "1.0.0",
-  "type": "module",
+  "description": "PvP Blackjack on Solana",
+  "private": true,
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "dev": "vite dev"
   },
   "dependencies": {
     "@solana/web3.js": "^1.87.6",
@@ -29,5 +28,14 @@
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
-  }
+  },
+  "keywords": [
+    "solana",
+    "blackjack",
+    "pvp",
+    "blockchain",
+    "web3"
+  ],
+  "author": "SolJack",
+  "license": "Apache-2.0"
 }
