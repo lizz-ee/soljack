@@ -31,9 +31,9 @@ export default function BetTierNav({ selectedTier, onSelectTier }: Props) {
             style={{
               ...styles.tierButton,
               background: isSelected 
-                ? linear-gradient(135deg, ${COLORS[index]} 0%, ${COLORS[index]}dd 100%)
+                ? 'linear-gradient(135deg, ${COLORS[index]} 0%, ${COLORS[index]}dd 100%)'
                 : canAfford
-                ? rgba(255, 255, 255, 0.5)
+                ? 'rgba(255, 255, 255, 0.5)'
                 : 'rgba(200, 200, 200, 0.3)',
               opacity: canAfford ? 1 : 0.5,
               cursor: canAfford ? 'pointer' : 'not-allowed',

@@ -43,7 +43,9 @@ export default function Table() {
               onClick={handleLeave}
               disabled={timeRemaining > 120}
             >
-              {timeRemaining > 120 ? Can leave in ${Math.floor((timeRemaining - 120) / 60)}:${((timeRemaining - 120) % 60).toString().padStart(2, '0')} : 'Leave Table'}
+              ? `Can leave in ${Math.floor((timeRemaining - 120) / 60)}:${((timeRemaining - 120) % 60)
+                .toString()
+                .padStart(2, '0')}`
             </button>
           </div>
         </div>

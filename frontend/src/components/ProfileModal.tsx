@@ -25,9 +25,9 @@ export default function ProfileModal({ onClose }: Props) {
   const formatTime = (timestamp: number) => {
     const diff = Date.now() - timestamp;
     const hours = Math.floor(diff / 3600000);
-    if (hours < 1) return ${Math.floor(diff / 60000)}m ago;
-    if (hours < 24) return ${hours}h ago;
-    return ${Math.floor(hours / 24)}d ago;
+    if (hours < 1) return '${Math.floor(diff / 60000)}m ago';
+    if (hours < 24) return '${hours}h ago';
+    return '${Math.floor(hours / 24)}d ago';
   };
 
   return (
@@ -55,7 +55,7 @@ export default function ProfileModal({ onClose }: Props) {
           <div style={styles.statCard}>
             <div style={styles.statLabel}>Rank</div>
             <div style={styles.statValue}>
-              {stats.rank ? #${stats.rank} : 'Unranked'}
+              {stats.rank ? '#${stats.rank}' : 'Unranked'}
             </div>
           </div>
         </div>
