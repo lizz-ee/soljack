@@ -75,6 +75,15 @@ auth-tokens/
 .helius-key
 .rpc-url
 
+# Vite cache
+.vite/
+
+# Vercel local state
+.vercel/
+
+# Claude Code project config
+.claude/
+
 # Auto Claude data directory
 .auto-claude/
 
